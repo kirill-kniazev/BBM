@@ -20,7 +20,7 @@ BlinkSMLM/
 │   ├── GUIs.py                  # GUI for the analysis (if applicable)
 │   ├── Main.py                  # Main analysis script
 │   ├── utils/                   # Utility files for efficiency and colormap
-│       ├── fire_cmap.py         # Colormap generation script
+│       ├── fire_cmap.py         # Custom colormap
 │       ├── Objective_Efficiency.txt  # Objective efficiency values
 │       ├── Quantum_Efficiency_iXon_897.txt  # Quantum efficiency for iXon camera
 │
