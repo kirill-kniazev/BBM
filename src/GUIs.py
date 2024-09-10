@@ -185,7 +185,7 @@ def get_h(max_frame):
     # Create and pack the "Continue" button in the bottom frame
     continue_button = tk.Button(
         bottom_frame, 
-        text="Continue with the Current 'h' Value", 
+        text="Continue", 
         command=on_continue
     )
     continue_button.pack(pady=5)

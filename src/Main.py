@@ -27,7 +27,7 @@ def close():                                        # Close the window
     root.destroy()
 
 root = tk.Tk()                                              # Create the main window
-root.title('BBM Analysis')
+root.title('Analysis Workflow')                             # Set the title of the window
 root.geometry('400x200')                                    # Set the window size to 400x200 pixels
 button_start = tk.Button(root, text='Start', command=start) # Create the "Start" button
 button_start.pack(pady=20)

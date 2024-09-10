@@ -25,13 +25,10 @@ BlinkSMLM/
 │       ├── Quantum_Efficiency_iXon_897.txt  # Quantum efficiency for iXon camera
 │
 ├── data/                        
-│   ├── SN9_100_3570.nd2         # Example input data (ND2 movie file)
+│   ├── Cy8_Dye.nd2              # Example input data (ND2 movie file)
 │
 ├── docs/                        
 │   ├── README.md                # Main project documentation
-│
-├── notebooks/                   
-│   ├── data_analysis.ipynb      # Jupyter notebook for analysis and visualization
 │
 ├── requirements.txt             # Python dependencies list
 ├── LICENSE                      # License file
@@ -49,28 +46,56 @@ BlinkSMLM/
    ```bash
    pip install -r requirements.txt
    ```
+Here's a refined and more polished version of the **Usage** section based on your input:
+
+---
 
 ## Usage
 
-### Running the Main Analysis
-To run the main analysis script:
+### 1. **Launching the GUI**:
+To begin the analysis, open the graphical user interface (GUI) by running the `Main.py` script:
+
 ```bash
 python src/Main.py
 ```
 
-Make sure to update the paths in the script to point to your input `.nd2` file located in the `data/` directory.
+Once the GUI, titled **"Analysis Workflow"**, is launched, you will see two options: **"Start"** to begin the analysis or **"Close"** to exit the process. To proceed with the analysis, click the **Start** button.
 
-### Steps in the Analysis
+This action will initialize the analysis workflow, and a status message **"Data Analysis in Process"** will appear. A new window titled **"Open the file"** will be displayed.
 
-1. **Background Removal**: Background is subtracted using `sep.Background` to improve signal detection.
-2. **Normalization**: Data is normalized between 0 and 1 to make intensity values comparable across datasets.
-3. **Maxima Detection**: Local maxima are identified using OpenCV with a thresholding method.
-4. **Intensity Extraction**: The intensity is extracted from the original unprocessed dataset for photon emission calculations.
-5. **Photon Emission Rate Calculation**: The software computes the number of photons using custom equations from the raw camera counts.
+### 2. **Data Input (Drag and Drop)**:
+In the **"Open the file"** window, you will be prompted to drag and drop your `.nd2` or `.tif` file into the designated area. Once you do this, the input GUI will close, and a new window called **"Parameters Input"** will open.
+
+### 3. **User Input Configuration**:
+After selecting the data file, a popup window will appear, asking for specific parameters needed for the analysis. These include:
+
+- **Time interval between frames acquired** (default: 11 ms)
+- **Number of frames to process** (default: full data stack)
+- **Camera pre-amplification gain** (default: 5.1)
+- **Camera EM gain** (default: 285)
+- **Wavelength of emission for the dye** in the optical range (665-705 nm, default: 677 nm for SF8(d4)₂)
+
+The window will have two buttons: **"Continue"** to proceed and **"Close"** to exit.
+
+Once you click **Continue**, the next step for thresholding will begin.
+
+### 4. **Thresholding for Particle Localization**:
+In the **"Select Threshold to Localize Particles"** window, you will define the threshold values for particle localization. The GUI provides a visual interface that helps you adjust the threshold to detect particles accurately. Ideally, you should slightly oversample the particles, and a good starting number is around **100 particles**.
+
+After setting the threshold, click **Continue**, and the analysis will begin. A **"Trace Processing"** window will pop up, displaying the processing progress in real-time.
+
+### 5. **Results**:
+Once the analysis is complete, the software will create a **"Results"** folder in the same directory as the file being analyzed.
+
+Within this folder, there will be two groups of files:
+- **"False Positive"**: Contains particles that were detected but did not exhibit any photobleaching or a two-state process.
+- **"Positive"**: Contains particles that exhibited clear multi-optical processes.
+
+These results will help you differentiate between valid and invalid single-molecule signals.  
 
 ### Example Input Data
 
-The `data/SN9_100_3570.nd2` file is an example input file. Replace this with your own `.nd2` file for analysis.
+The `data/Cy5_Dye.nd2` file is an example input file. Replace this with your own `.nd2` file for analysis.
 
 ### Photon Calculation
 
@@ -78,26 +103,3 @@ To calculate the number of photons arriving at the camera chip:
 ```bash
 N_arrive = ((raw_count - bias_offset) * pre_amp_gain) / (EM_gain * Quantum_efficiency)
 ```
-
-## Dependencies
-
-- Python 3.x
-- OpenCV
-- NumPy
-- sep (for background removal)
-- Hidden Markov Models (HMM) for intensity analysis
-
-Install them using:
-```bash
-pip install -r requirements.txt
-```
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-```
-
-### Key Points:
-- **File structure**: Reflects the structure you are using, including the `utils` folder for efficiency files.
-- **Features and usage**: Detailed the functionality of the software, including background removal, signal normalization, and photon calculation.
-- **Installation and dependencies**: Clear instructions on how to clone the repository, install dependencies, and run the analysis.
