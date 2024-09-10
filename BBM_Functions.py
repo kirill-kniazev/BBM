@@ -232,7 +232,7 @@ class BBM_Class:
                 trace_Oy = ((trace_Oy - bias_offset) * pre_amplifier_gain) / (em_gain * qe_data[0, 1])                  # Convert counts into photons
             return trace_Oy
         
-        def recorded_to_emitted(self, trace_Oy, NA = 1.45, n = 1.515, n_ellements = 4, wavelength = 677):  # Convert recieved photons by camera into emitted photons by the sample
+        def recorded_to_emitted(self, trace_Oy, NA = 1.49, n = 1.515, n_ellements = 4, wavelength = 677):  # Convert recieved photons by camera into emitted photons by the sample
             if wavelength <= 665 or wavelength >= 705:                                                       # Check if the wavelength is within the optical filters transmission range
                 print ("The wavelength is out of range")
             if wavelength >= 665 and wavelength <= 705:    
