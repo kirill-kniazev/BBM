@@ -1,4 +1,4 @@
-# Blinking-Based Multiplexing (BBM) for Single Molecule Localised Microscopy (SMLM) Software (Alpha)
+# Blinking-Based Multiplexing (BBM) for Single Molecule Localised Microscopy (SMLM) Software
 
 This repository contains a Python-based software for analyzing Single-Molecule Localization Microscopy (SMLM) data using **Blinking-Based Multiplexing**. The analysis includes background removal, signal normalization, particle localization, intensity extraction, and photon emission calculations. The software is optimized for Python 3.10.
 
