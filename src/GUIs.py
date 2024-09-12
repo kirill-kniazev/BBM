@@ -306,7 +306,7 @@ def process_traces(emissions, i, positive_path, false_positive_path):
     states = BBM.states_assignment(number_of_states, emissions, int(i))             # Fit HMM with the optimal number of states
 
     print(f"Trace {i}: {number_of_states} states(s). Silhouette coefficient {round(silhouette_avg, 2)}/{0.65}.")
-
+    
     if number_of_states >= 2:
         mono, trace_path, trace_name = False, positive_path, f"Trace_{i}"
     else:
@@ -315,17 +315,17 @@ def process_traces(emissions, i, positive_path, false_positive_path):
     # COUNTS
     # Plot the emissions and save the trace in a txt file
     fig, ax =BBM.plot_emissions(emissions, int(i), states, mono=mono)
-    fig.savefig(f"{trace_path}/{trace_name}.png")
+    fig.savefig(f"{trace_path}/C_{trace_name}.png")  # C - stands for counts
     plt.close()
 
     # PHOTONS - R
     # Count Convert
-    counts = emissions[i + 1]
+    counts = emissions[i + 1].copy()                 # Copy the emissions to avoid modifying the original data
     photons_received = BBM.count_convert(counts, pre_amplifier_gain = pre_amplifier_gain, em_gain = em_gain, wavelength = wavelength)
     emissions[i + 1] = photons_received
     # Plot the emissions and save the trace in a txt file
     fig, ax =BBM.plot_emissions(emissions, int(i), states, mono=mono, lable_Oy="Photons Received")
-    fig.savefig(f"{trace_path}/Photons_R_{trace_name}.png")
+    fig.savefig(f"{trace_path}/PR_{trace_name}.png") # PR - stands for Photons Received
     plt.close()
 
     # PHOTONS - E
@@ -334,13 +334,13 @@ def process_traces(emissions, i, positive_path, false_positive_path):
     emissions[i + 1] = recorded_to_emitted
     # Plot the emissions and save the trace in a txt file
     fig, ax =BBM.plot_emissions(emissions, int(i), states, mono=mono, lable_Oy="Emitted Photons")
-    fig.savefig(f"{trace_path}/Photons_E_{trace_name}.png")
+    fig.savefig(f"{trace_path}/PE_{trace_name}.png") # PE - stands for Photons Emitted
     plt.close()
 
     # Save trace in txt file
     trace = np.zeros((len(emissions[0]), 4))
     trace[:, 0], trace[:, 1], trace[:, 2], trace[:, 3] = emissions[0], counts, photons_received, recorded_to_emitted
-    header = "Time, Emissions, Photons Received, Emitted Photons" 
-    np.savetxt(f"{trace_path}/_{trace_name}.txt", trace, header=header)
+    header = "Time_sec, EMCCD_Counts, Photons_Received_by_EMCCD, Emitted_Photons_ by_the_Sample" 
+    np.savetxt(f"{trace_path}/{trace_name}.txt", trace, header=header)
 
 progress_analysis(emissions, maxima_locations_quantity,  positive_path, false_positive_path)
