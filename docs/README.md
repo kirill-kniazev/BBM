@@ -105,16 +105,16 @@ The analysis involves two steps to convert raw camera counts to the number of em
 
 The first step is to convert the raw counts detected by the camera into the number of photons that actually arrived at the camera chip. This is achieved using the following formula:
 
-\[
-N_{\text{received}} = \frac{(\text{raw\_count} - \text{bias\_offset}) \times \text{pre\_amp\_gain}}{\text{EM\_gain} \times \text{Quantum\_efficiency}}
-\]
+```
+N_received = ((raw_count - bias_offset) * pre_amp_gain) / (EM_gain * Quantum_efficiency)
+```
 
 Where:
-- \(\text{raw\_count}\) is the raw signal from the camera in counts.
-- \(\text{bias\_offset}\) is the bias offset from the EMCCD, typically around 200 counts.
-- \(\text{pre\_amp\_gain}\) is the pre-amplifier gain of the camera (default: 5.1).
-- \(\text{EM\_gain}\) is the electron-multiplying gain, typically set to 285.
-- \(\text{Quantum\_efficiency}\) is the camera's efficiency at converting incoming photons into counts, dependent on the wavelength.
+- `raw_count` is the raw signal from the camera in counts.
+- `bias_offset` is the bias offset from the EMCCD, typically around 200 counts.
+- `pre_amp_gain` is the pre-amplifier gain of the camera (default: 5.1).
+- `EM_gain` is the electron-multiplying gain, typically set to 285.
+- `Quantum_efficiency` is the camera's efficiency at converting incoming photons into counts, dependent on the wavelength.
 
 2. **Converting Received Photons to Emitted Photons**
 
@@ -122,12 +122,12 @@ Once you have the number of photons received by the camera, the next step is to 
 
 The formula for converting received photons to emitted photons is:
 
-\[
-N_{\text{emitted}} = \frac{N_{\text{received}}}{\eta_{\text{coll}} \times \eta_{\text{opt}}}
-\]
+```
+N_emitted = N_received / (η_coll * η_opt)
+```
 
 Where:
-- \(\eta_{\text{coll}}\) is the collection efficiency of the microscope objective, calculated based on the numerical aperture (NA) and refractive index (\(n\)) of the sample medium, representing the fraction of emitted light collected by the objective.
-- \(\eta_{\text{opt}}\) is the overall optical efficiency, accounting for transmission losses in the optical path, which includes the objective and other optical elements.
+- `η_coll` is the collection efficiency of the microscope objective, calculated based on the numerical aperture (NA) and refractive index (`n`) of the sample medium, representing the fraction of emitted light collected by the objective.
+- `η_opt` is the overall optical efficiency, accounting for transmission losses in the optical path, which includes the objective and other optical elements.
 
 This two-step process allows you to estimate the number of photons emitted by your sample based on the raw counts recorded by the camera.
