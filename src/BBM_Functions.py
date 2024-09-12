@@ -244,5 +244,5 @@ class BBM_Class:
                 
                 OL_data = OL_efficiency[np.where(OL_efficiency[:, 0] == wavelength)] / 100                 # Extract the quantum efficiency data for the given wavelength in %
                 eta_opt = OL_data[0, 1] * 0.96 ** n_ellements                                              # Calculate the optical efficiency (eta_opt)
-                trace_Oy = trace_Oy / (eta_coll * eta_opt)                                                 # Convert the recieved photons into emitted photons
+                trace_Oy = (trace_Oy / (eta_coll * eta_opt))                                               # Convert the recieved photons into emitted photons
             return trace_Oy

@@ -35,4 +35,3 @@ button_close = tk.Button(root, text='Close', command=close) # Create the "Close"
 button_close.pack(pady=20)
 
 root.mainloop()                                             # Start the main loop of the window
-
