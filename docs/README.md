@@ -73,7 +73,7 @@ After selecting the data file, a popup window will appear, asking for specific p
 - **Number of frames to process** (default: full data stack)
 - **Camera pre-amplification gain** (default: 5.1)
 - **Camera EM gain** (default: 285)
-- **Wavelength of emission for the dye** in the optical range (665-705 nm, default: 677 nm for SF8(d4)₂)
+- **Wavelength of emission for the dye** in the optical range (665-705 nm, default: 677 nm for SF8(D4)₂)
 
 The window will have two buttons: **"Continue"** to proceed and **"Close"** to exit.
 
